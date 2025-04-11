@@ -87,10 +87,10 @@
         }
 
         .hero-content {
-            display: flex; /* Added to allow flex layout for children */
-            flex-direction: column; /* Stack children vertically */
-            align-items: center; /* Center children horizontally */
-            width: 100%; /* Ensure content takes full width */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
 
         h1 {
@@ -105,62 +105,55 @@
             white-space: nowrap;
             overflow: hidden;
             font-size: 1.2em;
-            margin: 0 auto 20px auto; /* Added bottom margin */
-            max-width: fit-content; /* Ensure it doesn't stretch unnecessarily */
+            margin: 0 auto 20px auto;
+            max-width: fit-content;
             width: 0;
             animation: typing 3.5s steps(40, end) forwards,
                        blink-caret 0.75s step-end infinite;
         }
 
-        /* Moved discord-section styles here for clarity */
         .discord-section {
             background: rgba(0,0,0,0.3);
-            padding: 25px 15px; /* Adjusted padding */
+            padding: 25px 15px;
             text-align: center;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1); /* Changed from border-top */
-            border-radius: 15px; /* Added border radius */
-            margin-top: 30px; /* Space above */
-            margin-bottom: 30px; /* Space below */
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
             width: 100%;
-            max-width: 400px; /* Match social links width */
+            max-width: 400px;
             margin-left: auto;
             margin-right: auto;
-            box-sizing: border-box; /* Include padding in width */
+            box-sizing: border-box;
         }
 
         .discord-widget {
-            /* Removed background and padding as it's now on discord-section */
-            /* background: linear-gradient(45deg, #2C2F33, #23272A); */
-            /* border-radius: 15px; */
-            /* padding: 25px; */
-            max-width: 500px; /* Kept max-width just in case */
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .discord-widget h2 {
-             margin-top: 0; /* Remove default top margin */
-             margin-bottom: 10px; /* Adjust spacing */
-             font-size: 1.4em; /* Adjust size */
+             margin-top: 0;
+             margin-bottom: 10px;
+             font-size: 1.4em;
         }
 
         .discord-widget p {
-            margin-bottom: 20px; /* Space before button */
-            font-size: 1em; /* Adjust size */
+            margin-bottom: 20px;
+            font-size: 1em;
         }
-
 
         .discord-button {
             background: var(--discord-blurple);
             color: white;
-            padding: 12px 25px; /* Adjusted padding */
+            padding: 12px 25px;
             border-radius: 25px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
             font-size: 1em;
-            /* margin-top: 20px; Removed as spacing is handled by parent p */
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -195,11 +188,10 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
-            /* margin-top: 30px; Removed as spacing is handled by discord-section */
             width: 100%;
             max-width: 400px;
             padding: 0 10px;
-            box-sizing: border-box; /* Include padding in width */
+            box-sizing: border-box;
         }
 
         .social-link {
@@ -262,9 +254,8 @@
                 font-size: 1.5em;
             }
 
-            /* Adjust discord-section for larger screens */
             .discord-section {
-                 max-width: 600px; /* Match social links width */
+                 max-width: 600px;
             }
 
             .social-links {
@@ -329,6 +320,7 @@
                         </a>
                     </div>
                 </section>
+
                 <div class="social-links">
                     <a href="https://discord.gg/R7YbX48GcE" target="_blank" rel="noopener noreferrer" class="social-link" style="background: var(--discord-blurple)">
                         <i class="fab fa-discord"></i>
@@ -350,7 +342,7 @@
             </div>
         </section>
 
-        </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
