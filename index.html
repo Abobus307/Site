@@ -283,19 +283,19 @@
                 <h1>Вася2</h1>
                 <p class="typewriter">Разработчик игр, скриптов в Roblox</p>
                 <div class="social-links">
-                    <a href="https://discord.gg/R7YbX48GcE" class="social-link" style="background: var(--discord-blurple)">
+                    <a href="https://discord.gg/R7YbX48GcE" target="_blank" rel="noopener noreferrer" class="social-link" style="background: var(--discord-blurple)">
                         <i class="fab fa-discord"></i>
                         Discord
                     </a>
-                    <a href="https://funpay.com/users/11718542/" class="social-link" style="background: var(--funpay)">
+                    <a href="https://funpay.com/users/11718542/" target="_blank" rel="noopener noreferrer" class="social-link" style="background: var(--funpay)">
                         <i class="fas fa-coins"></i>
                         FunPay
                     </a>
-                    <a href="https://steamcommunity.com/profiles/76561198254022350/" class="social-link" style="background: var(--steam)">
+                    <a href="https://steamcommunity.com/profiles/76561198254022350/" target="_blank" rel="noopener noreferrer" class="social-link" style="background: var(--steam)">
                         <i class="fab fa-steam"></i>
                         Steam
                     </a>
-                    <a href="https://github.com/Abobus307" class="social-link" style="background: #333">
+                    <a href="https://github.com/Abobus307" target="_blank" rel="noopener noreferrer" class="social-link" style="background: #333">
                         <i class="fab fa-github"></i>
                         GitHub
                     </a>
@@ -307,7 +307,7 @@
             <div class="discord-widget">
                 <h2>Присоединяйтесь к нам</h2>
                 <p>💬 Общение |🎮 Игры | 💻 Разработка</p>
-                <a href="https://discord.gg/R7YbX48GcE" class="discord-button">
+                <a href="https://discord.gg/R7YbX48GcE" target="_blank" rel="noopener noreferrer" class="discord-button">
                     <i class="fab fa-discord"></i>
                     Подключиться
                 </a>
@@ -325,9 +325,16 @@
         });
 
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
         particlesJS('particles', {
             particles: {
-                number: { value: isMobile ? 60 : 120 },
+                number: { 
+                    value: isMobile ? 30 : 60,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
                 color: { value: ['#6C63FF', '#7B68EE', '#FF6B35'] },
                 shape: { type: 'circle' },
                 opacity: { 
@@ -335,28 +342,33 @@
                     random: true
                 },
                 size: { 
-                    value: 4,
-                    random: { enable: true, minimumValue: 2 }
+                    value: 3,
+                    random: { 
+                        enable: true, 
+                        minimumValue: 1 
+                    }
                 },
                 move: {
                     enable: true,
-                    speed: isMobile ? 2 : 3,
+                    speed: isMobile ? 1.5 : 2,
                     direction: 'none',
                     random: true,
                     straight: false,
-                    out_mode: 'bounce',
-                    bounce: true
+                    out_mode: 'out',
+                    bounce: false
                 }
             },
             interactivity: {
                 detect_on: 'canvas',
                 events: {
-                    onhover: { enable: !isMobile, mode: 'repulse' },
+                    onhover: { 
+                        enable: !isMobile, 
+                        mode: 'grab'
+                    },
                     resize: true
                 }
             }
         });
     </script>
 </body>
-</html>
 </html>
