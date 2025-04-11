@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вася2 | Портфолио & Сообщества</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --discord-blurple: #5865F2;
+            --dark-bg: #1A1A1A;
+            --funpay: #FF6B35;
+            --steam: #1B2838;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeUp 1s forwards;
+        }
+
+        .discord-section {
+            background: rgba(0,0,0,0.3);
+            padding: 50px 20px;
+            margin: 100px 0;
+            text-align: center;
+        }
+
+        .discord-widget {
+            background: #2C2F33;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 0.8s 0.3s forwards;
+        }
+
+        .discord-button {
+            background: var(--discord-blurple);
+            color: white !important;
+            padding: 15px 40px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s forwards;
+        }
+
+        .social-link.discord { background: var(--discord-blurple); }
+        .social-link.steam { background: var(--steam); }
+        .social-link.funpay { background: var(--funpay); }
+        .social-link.github { background: #333; }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero" data-aos="fade-up">
+        <div class="hero-content">
+            <h1>Ваше Имя</h1>
+            <p>Разработчик</p>
+            <div class="social-links">
+                <a href="https://discord.gg/R7YbX48GcE" class="social-link discord" target="_blank">
+                    <i class="fab fa-discord"></i>
+                    Discord
+                </a>
+                <a href="https://funpay.com/users/11718542/" class="social-link funpay" target="_blank">
+                    <i class="fas fa-coins"></i>
+                    FunPay
+                </a>
+                <a href="https://steamcommunity.com/profiles/76561198254022350/" class="social-link steam" target="_blank">
+                    <i class="fab fa-steam"></i>
+                    Steam
+                </a>
+                <a href="https://github.com/Abobus307" class="social-link github" target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="discord-section" id="discord" data-aos="zoom-in">
+        <div class="discord-widget">
+            <h2>Присоединяйтесь к нашему сообществу</h2>
+            <p>🎮 Игры | 💻 Разработка | 🎨 Творчество</p>
+            <a href="https://discord.gg/R7YbX48GcE" class="discord-button" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" width="24" alt="Discord">
+                Подключиться
+            </a>
+            <p style="margin-top: 20px; opacity: 0.8;">Участников онлайн: <span id="discord-online">...</span></p>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000 });
+
+        // Для работы онлайн-статуса замените YOUR_SERVER_ID на ID вашего сервера
+        fetch('https://discord.com/api/guilds/YOUR_SERVER_ID/widget.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('discord-online').textContent = data.presence_count;
+            })
+            .catch(() => {
+                document.getElementById('discord-online').textContent = 'много 😊';
+            });
+    </script>
+</body>
+</html>
