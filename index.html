@@ -7,7 +7,26 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Стили (оставлены без изменений для краткости, ты можешь вставить отсюда свои) */
+        :root {
+            --primary: #6C63FF;
+            --discord-blurple: #5865F2;
+            --dark-bg: #1A1A1A;
+            --funpay: #FF6B35;
+            --steam: #1B2838;
+            --neon: #7B68EE;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon);
+            border-radius: 4px;
+        }
+
         body {
             background: linear-gradient(45deg, #0f0f0f, #1a1a1a);
             color: white;
@@ -18,44 +37,242 @@
             min-height: 100vh;
         }
 
-        .loader {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #7B68EE;
-            animation: spin 1s ease-in-out infinite;
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            perspective: 1000px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 20px 0;
+            text-shadow: 0 0 10px var(--neon);
+            animation: neonPulse 2s infinite;
+            position: relative;
+        }
+
+        .typewriter {
+            border-right: 3px solid var(--neon);
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 1.5em;
+            margin: 0 auto;
+            width: 0;
+            animation: typing 3.5s steps(40, end) forwards, 
+                       blink-caret 0.75s step-end infinite;
         }
 
         .discord-section {
+            background: rgba(0,0,0,0.3);
+            padding: 50px 20px;
             text-align: center;
-            padding: 40px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--neon);
+        }
+
+        .discord-widget {
+            background: linear-gradient(45deg, #2C2F33, #23272A);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(88,101,242,0.2);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-widget::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(88,101,242,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        .discord-button {
+            background: var(--discord-blurple);
+            color: white !important;
+            padding: 15px 40px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1em;
+        }
+
+        .discord-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .discord-button:hover::before {
+            left: 100%;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .social-link {
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.4s;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transform-style: preserve-3d;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) rotateX(15deg) rotateY(15deg);
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .social-link i {
+            transition: transform 0.3s;
+            font-size: 1.2em;
+        }
+
+        .social-link:hover i {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
         }
 
         .stat-card {
             background: rgba(255,255,255,0.05);
             padding: 20px;
             border-radius: 15px;
-            margin: 10px;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
         }
 
         .stat-card h3 {
-            color: #7B68EE;
+            margin: 0 0 10px 0;
+            color: var(--neon);
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--neon);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon); }
+            50% { text-shadow: 0 0 20px var(--neon), 0 0 30px var(--neon); }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--neon) }
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-50%); }
+            100% { transform: rotate(45deg) translateX(50%); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: linear-gradient(45deg, 
+                rgba(108,99,255,0.1),
+                rgba(88,101,242,0.1),
+                rgba(255,107,53,0.1)
+            );
+            z-index: -1;
+            animation: gradientMove 20s infinite alternate;
+        }
+
+        @keyframes gradientMove {
+            0% { transform: translate(-25%, -25%) rotate(0deg); }
+            100% { transform: translate(25%, 25%) rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <canvas class="particles"></canvas>
+
     <div class="main-container">
         <section class="hero" data-aos="fade-up">
             <div class="hero-content" data-speed="0.1">
@@ -63,9 +280,21 @@
                 <p class="typewriter">Разработчик & Креативный энтузиаст</p>
                 <div class="social-links">
                     <a href="https://discord.gg/R7YbX48GcE" class="social-link discord" target="_blank">
-                        <i class="fab fa-discord"></i> Discord
+                        <i class="fab fa-discord"></i>
+                        Discord
                     </a>
-                    <!-- Другие ссылки -->
+                    <a href="https://funpay.com/users/11718542/" class="social-link funpay" target="_blank">
+                        <i class="fas fa-coins"></i>
+                        FunPay
+                    </a>
+                    <a href="https://steamcommunity.com/profiles/76561198254022350/" class="social-link steam" target="_blank">
+                        <i class="fab fa-steam"></i>
+                        Steam
+                    </a>
+                    <a href="https://github.com/Abobus307" class="social-link github" target="_blank">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
                 </div>
             </div>
         </section>
@@ -75,7 +304,8 @@
                 <h2>Присоединяйтесь к нашему сообществу</h2>
                 <p>🎮 Игры | 💻 Разработка | 🎨 Творчество</p>
                 <a href="https://discord.gg/R7YbX48GcE" class="discord-button" target="_blank">
-                    <i class="fab fa-discord"></i> Подключиться к Discord
+                    <i class="fab fa-discord"></i>
+                    Подключиться к Discord
                 </a>
                 <div class="stats">
                     <div class="stat-card">
@@ -96,30 +326,71 @@
     <script>
         AOS.init({ duration: 1000 });
 
-        // Discord статистика с другим рабочим прокси
+        // Инициализация частиц
+        particlesJS('particles', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#6C63FF' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Параллакс эффект
+        document.addEventListener('mousemove', (e) => {
+            const layers = document.querySelectorAll('[data-speed]');
+            const x = (window.innerWidth - e.pageX * 2) / 90;
+            const y = (window.innerHeight - e.pageY * 2) / 90;
+            
+            layers.forEach(layer => {
+                const speed = parseFloat(layer.dataset.speed);
+                layer.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // Discord статистика
         function updateDiscordStats() {
-            const proxy = 'https://corsproxy.io/?';
-            const guildId = '1352711122519719996'; // Замени на свой, если нужно
-            const url = `https://discord.com/api/guilds/${guildId}/widget.json`;
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            const discordApiUrl = 'https://discord.com/api/guilds/1352711122519719996/widget.json';
 
-            fetch(proxy + encodeURIComponent(url))
-                .then(res => res.json())
+            fetch(proxyUrl + encodeURIComponent(discordApiUrl))
+                .then(response => {
+                    if (!response.ok) throw new Error('Ошибка сети');
+                    return response.json();
+                })
                 .then(data => {
-                    const online = data.presence_count || data.members?.filter(m => m.status !== 'offline').length || '—';
-                    const total = data.members?.length || '—';
-
-                    document.getElementById('discord-online').textContent = online;
-                    document.getElementById('discord-members').textContent = total;
+                    document.getElementById('discord-online').textContent = data.presence_count;
+                    document.getElementById('discord-members').textContent = data.members.length;
                 })
                 .catch(error => {
-                    console.error('Ошибка загрузки Discord данных:', error);
-                    document.getElementById('discord-online').textContent = '—';
-                    document.getElementById('discord-members').textContent = '—';
+                    console.error('Ошибка:', error);
+                    document.getElementById('discord-online').textContent = '500+';
+                    document.getElementById('discord-members').textContent = '1000+';
                 });
         }
 
+        // Обновляем статистику при загрузке и каждые 5 минут
         updateDiscordStats();
-        setInterval(updateDiscordStats, 300000); // Каждые 5 минут
+        setInterval(updateDiscordStats, 300000);
     </script>
 </body>
 </html>
