@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вася2 | Bio</title>
+    <title>Вася2 | Разработчик</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -17,14 +17,13 @@
         }
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
             background: var(--dark-bg);
         }
         ::-webkit-scrollbar-thumb {
             background: var(--neon);
-            border-radius: 4px;
         }
 
         body {
@@ -33,11 +32,10 @@
             font-family: 'Courier New', monospace;
             margin: 0;
             overflow-x: hidden;
-            position: relative;
             min-height: 100vh;
         }
 
-        .particles {
+        #particles {
             position: fixed;
             width: 100%;
             height: 100%;
@@ -48,6 +46,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding: 15px;
         }
 
         .hero {
@@ -56,75 +55,118 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 20px;
-            perspective: 1000px;
+            padding: 20px 10px;
         }
 
         h1 {
-            font-size: 4rem;
-            margin: 20px 0;
+            font-size: 2.5rem;
+            margin: 15px 0;
             text-shadow: 0 0 10px var(--neon);
             animation: neonPulse 2s infinite;
-            position: relative;
         }
 
         .typewriter {
             border-right: 3px solid var(--neon);
             white-space: nowrap;
             overflow: hidden;
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin: 0 auto;
             width: 0;
             animation: typing 3.5s steps(40, end) forwards, 
                        blink-caret 0.75s step-end infinite;
         }
 
+        .social-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 400px;
+            padding: 0 10px;
+        }
+
+        .social-link {
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.1),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link i {
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .social-link:hover i {
+            transform: rotate(360deg) scale(1.2);
+        }
+
         .discord-section {
             background: rgba(0,0,0,0.3);
-            padding: 50px 20px;
+            padding: 30px 15px;
             text-align: center;
-            position: relative;
             backdrop-filter: blur(10px);
             border-top: 2px solid var(--neon);
+            margin-top: auto;
         }
 
         .discord-widget {
             background: linear-gradient(45deg, #2C2F33, #23272A);
             border-radius: 15px;
-            padding: 30px;
-            max-width: 600px;
+            padding: 25px;
+            max-width: 500px;
             margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(88,101,242,0.2);
-            transition: transform 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .discord-widget::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(88,101,242,0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
         }
 
         .discord-button {
             background: var(--discord-blurple);
-            color: white !important;
-            padding: 15px 40px;
+            color: white;
+            padding: 15px 30px;
             border-radius: 25px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: 0.3s;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            font-size: 1.1em;
         }
 
         .discord-button::before {
@@ -143,90 +185,42 @@
             transition: 0.5s;
         }
 
+        .discord-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(88,101,242,0.4);
+        }
+
         .discord-button:hover::before {
             left: 100%;
         }
 
-        .social-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            .typewriter {
+                font-size: 1.5em;
+            }
+            
+            .social-links {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+            }
+            
+            .social-link {
+                padding: 15px 25px;
+            }
 
-        .social-link {
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.4s;
-            position: relative;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-            transform-style: preserve-3d;
-        }
-
-        .social-link:hover {
-            transform: translateY(-5px) rotateX(15deg) rotateY(15deg);
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
-        }
-
-        .social-link i {
-            transition: transform 0.3s;
-            font-size: 1.2em;
-        }
-
-        .social-link:hover i {
-            transform: scale(1.2) rotate(360deg);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 20px;
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-
-        .stat-card h3 {
-            margin: 0 0 10px 0;
-            color: var(--neon);
-        }
-
-        .stat-card p {
-            margin: 0;
-            font-size: 1.5em;
-            font-weight: bold;
-            min-height: 24px;
-        }
-
-        .loader {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: var(--neon);
-            animation: spin 1s ease-in-out infinite;
+            .discord-button {
+                padding: 15px 40px;
+                font-size: 1.1em;
+            }
         }
 
         @keyframes neonPulse {
-            0%, 100% { text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon); }
-            50% { text-shadow: 0 0 20px var(--neon), 0 0 30px var(--neon); }
+            0%, 100% { text-shadow: 0 0 10px var(--neon); }
+            50% { text-shadow: 0 0 20px var(--neon); }
         }
 
         @keyframes typing {
@@ -238,60 +232,30 @@
             from, to { border-color: transparent }
             50% { border-color: var(--neon) }
         }
-
-        @keyframes shine {
-            0% { transform: rotate(45deg) translateX(-50%); }
-            100% { transform: rotate(45deg) translateX(50%); }
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            right: -50%;
-            bottom: -50%;
-            background: linear-gradient(45deg, 
-                rgba(108,99,255,0.1),
-                rgba(88,101,242,0.1),
-                rgba(255,107,53,0.1)
-            );
-            z-index: -1;
-            animation: gradientMove 20s infinite alternate;
-        }
-
-        @keyframes gradientMove {
-            0% { transform: translate(-25%, -25%) rotate(0deg); }
-            100% { transform: translate(25%, 25%) rotate(360deg); }
-        }
     </style>
 </head>
 <body>
-    <canvas class="particles"></canvas>
+    <canvas id="particles"></canvas>
 
     <div class="main-container">
         <section class="hero" data-aos="fade-up">
-            <div class="hero-content" data-speed="0.1">
+            <div class="hero-content">
                 <h1>Вася2</h1>
-                <p class="typewriter">Разработчик игр и скриптов в Roblox</p>
+                <p class="typewriter">Разработчик игр, скриптов в Roblox</p>
                 <div class="social-links">
-                    <a href="https://discord.gg/R7YbX48GcE" class="social-link discord" target="_blank">
+                    <a href="https://discord.gg/R7YbX48GcE" class="social-link" style="background: var(--discord-blurple)">
                         <i class="fab fa-discord"></i>
                         Discord
                     </a>
-                    <a href="https://funpay.com/users/11718542/" class="social-link funpay" target="_blank">
+                    <a href="https://funpay.com/users/11718542/" class="social-link" style="background: var(--funpay)">
                         <i class="fas fa-coins"></i>
                         FunPay
                     </a>
-                    <a href="https://steamcommunity.com/profiles/76561198254022350/" class="social-link steam" target="_blank">
+                    <a href="https://steamcommunity.com/profiles/76561198254022350/" class="social-link" style="background: var(--steam)">
                         <i class="fab fa-steam"></i>
                         Steam
                     </a>
-                    <a href="https://github.com/Abobus307" class="social-link github" target="_blank">
+                    <a href="https://github.com/Abobus307" class="social-link" style="background: #333">
                         <i class="fab fa-github"></i>
                         GitHub
                     </a>
@@ -299,24 +263,14 @@
             </div>
         </section>
 
-        <section class="discord-section" id="discord" data-aos="zoom-in">
+        <section class="discord-section" data-aos="zoom-in">
             <div class="discord-widget">
-                <h2>Присоединяйтесь к нашему сообществу</h2>
+                <h2>Присоединяйтесь к нам</h2>
                 <p>🎮 Игры | 💻 Разработка</p>
-                <a href="https://discord.gg/R7YbX48GcE" class="discord-button" target="_blank">
+                <a href="https://discord.gg/R7YbX48GcE" class="discord-button">
                     <i class="fab fa-discord"></i>
-                    Подключиться к Discord
+                    Подключиться
                 </a>
-                <div class="stats">
-                    <div class="stat-card">
-                        <h3>Участников</h3>
-                        <p id="discord-members"><span class="loader"></span></p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Онлайн</h3>
-                        <p id="discord-online"><span class="loader"></span></p>
-                    </div>
-                </div>
             </div>
         </section>
     </div>
@@ -324,68 +278,37 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        AOS.init({ duration: 1000 });
+        AOS.init({
+            duration: 800,
+            once: true,
+            disable: 'mobile'
+        });
 
-        // Инициализация частиц
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         particlesJS('particles', {
             particles: {
-                number: { value: 80 },
+                number: { value: isMobile ? 40 : 80 },
                 color: { value: '#6C63FF' },
                 shape: { type: 'circle' },
                 opacity: { value: 0.5 },
                 size: { value: 3 },
                 move: {
                     enable: true,
-                    speed: 2,
+                    speed: isMobile ? 1.5 : 2,
                     direction: 'none',
                     random: false,
                     straight: false,
-                    out_mode: 'out',
-                    bounce: false,
+                    out_mode: 'out'
                 }
             },
             interactivity: {
                 detect_on: 'canvas',
                 events: {
-                    onhover: { enable: true, mode: 'repulse' },
-                    onclick: { enable: true, mode: 'push' },
+                    onhover: { enable: !isMobile, mode: 'repulse' },
                     resize: true
                 }
-            },
-            retina_detect: true
-        });
-
-        // Параллакс эффект
-        document.addEventListener('mousemove', (e) => {
-            const layers = document.querySelectorAll('[data-speed]');
-            const x = (window.innerWidth - e.pageX * 2) / 90;
-            const y = (window.innerHeight - e.pageY * 2) / 90;
-            
-            layers.forEach(layer => {
-                const speed = parseFloat(layer.dataset.speed);
-                layer.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-            });
-        });
-
-        // Discord статистика
-        async function updateDiscordStats() {
-            try {
-                const response = await fetch('https://discord.com/api/guilds/1352711122519719996/widget.json');
-                if (!response.ok) throw new Error('Ошибка сервера');
-                const data = await response.json();
-                
-                document.getElementById('discord-online').textContent = data.presence_count;
-                document.getElementById('discord-members').textContent = data.members.length;
-            } catch (error) {
-                console.error('Ошибка:', error);
-                document.getElementById('discord-online').textContent = '500+';
-                document.getElementById('discord-members').textContent = '1000+';
             }
-        }
-
-        // Обновление статистики
-        updateDiscordStats();
-        setInterval(updateDiscordStats, 300000);
+        });
     </script>
 </body>
 </html>
