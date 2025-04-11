@@ -148,7 +148,7 @@
         AOS.init({ duration: 1000 });
 
         // Для работы онлайн-статуса замените YOUR_SERVER_ID на ID вашего сервера
-        fetch('https://discord.com/api/guilds/YOUR_SERVER_ID/widget.json')
+        fetch('https://discord.com/api/guilds/1352711122519719996/widget.json')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('discord-online').textContent = data.presence_count;
