@@ -1,138 +1,399 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вася2 | Bio</title>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #6C63FF;
-      --discord-blurple: #5865F2;
-      --dark-bg: #1A1A1A;
-      --funpay: #FF6B35;
-      --steam: #1B2838;
-      --neon: #7B68EE;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вася2 | Bio</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --discord-blurple: #5865F2;
+            --dark-bg: #1A1A1A;
+            --funpay: #FF6B35;
+            --steam: #1B2838;
+            --neon: #7B68EE;
+        }
 
-    body {
-      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #2d0f47, #0f2d47);
-      background-size: 400% 400%;
-      animation: gradientFlow 15s ease infinite;
-      color: white;
-      font-family: 'Courier New', monospace;
-      margin: 0;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon);
+        }
 
-    /* … остальные ваши стили без изменений … */
+        body {
+            background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #2d0f47, #0f2d47);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            color: white;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-    .typewriter {
-      border-right: 3px solid var(--neon);
-      white-space: nowrap;
-      overflow: hidden;
-      font-size: 1.2em;
-      margin: 0 auto 20px;
-      /* начинаем с ширины 0 символов */
-      width: 0ch;
-    }
+        .bg-pattern {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            opacity: 0.1;
+        }
 
-    @keyframes typing {
-      from { width: 0ch; }
-      /* здесь 29 — это количество символов в фразе "Разработчик скриптов в Roblox" */
-      to   { width: 29ch; }
-    }
+        .bg-pattern::before,
+        .bg-pattern::after {
+            content: '';
+            position: absolute;
+            width: 150vw;
+            height: 150vh;
+            background: linear-gradient(45deg, var(--neon) 2px, transparent 2px);
+            background-size: 40px 40px;
+            animation: movePattern 100s linear infinite;
+        }
 
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50%      { border-color: var(--neon); }
-    }
+        .bg-pattern::after {
+            background: linear-gradient(-45deg, rgba(108,99,255,0.3) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation-direction: reverse;
+        }
 
-    @keyframes gradientFlow {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    /* … остальные keyframes и медиа-запросы … */
-  </style>
+        #particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 15px 0;
+            text-shadow: 0 0 10px var(--neon);
+            animation: neonPulse 2s infinite;
+        }
+
+        .typewriter {
+            border-right: 3px solid var(--neon);
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 1.2em;
+            margin: 0 auto 20px auto;
+            max-width: fit-content;
+            width: 0;
+            animation: typing 5s steps(28, end) forwards,
+                       blink-caret 0.75s step-end infinite;
+        }
+
+        .discord-section {
+            background: rgba(0,0,0,0.3);
+            padding: 25px 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+        }
+
+        .discord-widget {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .discord-widget h2 {
+             margin-top: 0;
+             margin-bottom: 10px;
+             font-size: 1.4em;
+        }
+
+        .discord-widget p {
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        .discord-button {
+            background: var(--discord-blurple);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .discord-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(88,101,242,0.4);
+        }
+
+        .discord-button:hover::before {
+            left: 100%;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .social-link {
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.1),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link i {
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .social-link:hover i {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .typewriter {
+                font-size: 1.5em;
+            }
+
+            .discord-section {
+                 max-width: 600px;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+            }
+
+            .social-link {
+                padding: 15px 25px;
+            }
+
+            .discord-button {
+                padding: 15px 40px;
+                font-size: 1.1em;
+            }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+
+        @keyframes movePattern {
+            0% { transform: translate(0, 0) }
+            100% { transform: translate(-50%, -50%) }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { text-shadow: 0 0 10px var(--neon); }
+            50% { text-shadow: 0 0 20px var(--neon); }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--neon) }
+        }
+    </style>
 </head>
 <body>
-  <div class="bg-pattern"></div>
-  <canvas id="particles"></canvas>
+    <div class="bg-pattern"></div>
+    <canvas id="particles"></canvas>
 
-  <div class="main-container">
-    <section class="hero" data-aos="fade-up">
-      <div class="hero-content">
-        <h1>Вася2</h1>
-        <p class="typewriter">Разработчик скриптов в Roblox</p>
+    <div class="main-container">
+        <section class="hero" data-aos="fade-up">
+            <div class="hero-content">
+                <h1>Вася2</h1>
+                <p class="typewriter">Разработчик скриптов в Roblox</p>
 
-        <!-- Discord‑секция и социальные ссылки без изменений -->
-      </div>
-    </section>
-  </div>
+                <section class="discord-section" data-aos="zoom-in">
+                    <div class="discord-widget">
+                        <h2>Присоединяйтесь к нам</h2>
+                        <p>💬Общение | 🎮Игры | 💻Разработка</p>
+                        <a href="https://discord.gg/R7YbX48GcE" target="_blank" rel="noopener noreferrer" class="discord-button">
+                            <i class="fab fa-discord"></i>
+                            Подключиться
+                        </a>
+                    </div>
+                </section>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script>
-    // Определяем мобильное устройство
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                <div class="social-links">
+                    <a href="https://discord.gg/R7YbX48GcE" target="_blank" rel="noopener noreferrer" class="social-link" style="background: var(--discord-blurple)">
+                        <i class="fab fa-discord"></i>
+                        Discord
+                    </a>
+                    <a href="https://funpay.com/users/11718542/" target="_blank" rel="noopener noreferrer" class="social-link" style="background: var(--funpay)">
+                        <i class="fas fa-coins"></i>
+                        FunPay
+                    </a>
+                    <a href="https://steamcommunity.com/profiles/76561198254022350/" target="_blank" rel="noopener noreferrer" class="social-link" style="background: var(--steam)">
+                        <i class="fab fa-steam"></i>
+                        Steam
+                    </a>
+                    <a href="https://github.com/Abobus307" target="_blank" rel="noopener noreferrer" class="social-link" style="background: #333">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
 
-    // Инициализируем AOS: секция .hero появится с fade-up за 800ms
-    AOS.init({
-      duration: 800,
-      once: true,
-      disable: 'mobile'  // на мобилках AOS отключён
-    });
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true,
+            disable: false
+        });
 
-    // JS‑триггер для запуска анимации набора текста
-    const tw = document.querySelector('.typewriter');
-
-    if (isMobile) {
-      // на мобилках сразу запускаем анимацию
-      tw.style.animation = 'typing 3.5s steps(29,end) forwards, blink-caret 0.75s step-end infinite';
-    } else {
-      // на десктопе ждём события AOS‑fade, и только потом запускаем
-      document.addEventListener('aos:in', ({ detail }) => {
-        if (detail.classList.contains('hero')) {
-          tw.style.animation = 'typing 3.5s steps(29,end) forwards, blink-caret 0.75s step-end infinite';
-        }
-      });
-    }
-
-    // Конфигурация частиц — без изменений
-    particlesJS('particles', {
-      particles: {
-        number: {
-          value: isMobile ? 30 : 60,
-          density: { enable: true, value_area: 800 }
-        },
-        color: { value: ['#6C63FF', '#7B68EE', '#FF6B35'] },
-        shape: { type: 'circle' },
-        opacity: { value: 0.7, random: true },
-        size: {
-          value: 3,
-          random: { enable: true, minimumValue: 1 }
-        },
-        move: {
-          enable: true,
-          speed: isMobile ? 1.5 : 2,
-          direction: 'none',
-          random: true,
-          straight: false,
-          out_mode: 'out',
-          bounce: false
-        }
-      },
-      interactivity: {
-        detect_on: 'canvas',
-        events: {
-          onhover: { enable: !isMobile, mode: 'grab' },
-          resize: true
-        }
-      }
-    });
-  </script>
+        particlesJS('particles', {
+            particles: {
+                number: {
+                    value: 30,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: { value: ['#6C63FF', '#7B68EE', '#FF6B35'] },
+                shape: { type: 'circle' },
+                opacity: {
+                    value: 0.7,
+                    random: true
+                },
+                size: {
+                    value: 3,
+                    random: {
+                        enable: true,
+                        minimumValue: 1
+                    }
+                },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    resize: true
+                }
+            }
+        });
+    </script>
 </body>
 </html>
